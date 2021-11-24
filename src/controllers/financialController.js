@@ -2,17 +2,7 @@ import * as financialServices from '../services/financialServices.js';
 
 async function postEvent(req, res) {
     try {
-        const authorization = req.headers.authorization || '';
-        const token = authorization.split('Bearer ')[1];
-
-        if (!token) {
-            return res.sendStatus(401);
-        }
-
-        const user = financialServices.verifyUser(token);
-        if (!user) {
-            return res.sendStatus(401);
-        }
+        const { user } = res.locals;
 
         const { value, type } = req.body;
 
@@ -39,17 +29,7 @@ async function postEvent(req, res) {
 
 async function getEvents(req, res) {
     try {
-        const authorization = req.headers.authorization || '';
-        const token = authorization.split('Bearer ')[1];
-
-        if (!token) {
-            return res.sendStatus(401);
-        }
-
-        const user = financialServices.verifyUser(token);
-        if (!user) {
-            return res.sendStatus(401);
-        }
+        const { user } = res.locals;
 
         const events = await financialServices.getEvents(user.id);
 
@@ -62,17 +42,7 @@ async function getEvents(req, res) {
 
 async function getSum(req, res) {
     try {
-        const authorization = req.headers.authorization || '';
-        const token = authorization.split('Bearer ')[1];
-
-        if (!token) {
-            return res.sendStatus(401);
-        }
-
-        const user = financialServices.verifyUser(token);
-        if (!user) {
-            return res.sendStatus(401);
-        }
+        const { user } = res.locals;
 
         const sum = await financialServices.getSum(user.id);
 

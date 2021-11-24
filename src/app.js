@@ -3,10 +3,12 @@ import cors from 'cors';
 
 import * as userController from './controllers/userController.js';
 import * as financialController from './controllers/financialController';
+import auth from './middlewares/auth.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/financial-events', auth);
 
 app.post('/sign-up', userController.signUp);
 
